@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pytest-harmony"
-version = "0.1.0"
+version = "1.0.0"
 description = "Chain tests and data with pytest"
 authors = ["TAG-Epic <tagepicuwu@gmail.com>"]
 license = "MIT"
