@@ -1,0 +1,73 @@
+name: Lint
+permissions:
+  contents: read
+on:
+  pull_request: {}
+  push:
+    branches: ["master"]
+jobs:
+  black:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+      - name: Install poetry
+        run: pip install poetry
+      - name: Install dependencies
+        run: poetry install
+      - name: Run tests
+        run: poetry run task black_check
+  isort:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+      - name: Install poetry
+        run: pip install poetry
+      - name: Install dependencies
+        run: poetry install
+      - name: Run tests
+        run: poetry run task isort_check
+  pyright:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+      - name: Install poetry
+        run: pip install poetry
+      - name: Install dependencies
+        run: poetry install -E speed
+      - uses: actions/setup-node@v2
+        name: Install node
+        with:
+          node-version: "14"
+      - name: Install pyright
+        run: npm install -g pyright
+      - name: Enable the problem checker
+        run: echo "::add-matcher::.github/checkers/pyright.json"
+      - name: Run pyright
+        run: poetry run pyright pytest_harmony/
+  slots-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+      - name: Install poetry
+        run: pip install poetry
+      - name: Install dependencies
+        run: poetry install
+      - name: Run slotscheck
+        run: poetry run slotscheck pytest_harmony/
+

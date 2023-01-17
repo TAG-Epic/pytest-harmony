@@ -1,0 +1,43 @@
+[tool.poetry]
+name = "pytest-harmony"
+version = "0.1.0"
+description = "Chain tests and data with pytest"
+authors = ["TAG-Epic <tagepicuwu@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "pytest_harmony"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pytest-asyncio = "^0.20.3"
+pytest = "^7.2.1"
+furo = "^2022.1.2"
+isort = "^5.10.1"
+black = "^22.6.0"
+taskipy = "^1.9.0"
+Sphinx = "^4.4.0"
+sphinx-copybutton = "^0.4.0"
+
+[tool.taskipy.tasks]
+black_check = "black . --diff --check"
+isort_check = "isort . --check --diff"
+tests = "pytest"
+black = "black ."
+isort = "isort ."
+lint = "black . && isort ."
+
+[tool.black]
+line-length = 120
+target-version = ["py38"]
+
+[tool.isort]
+profile = "black"
+
+[tool.pyright]
+pythonPlatform = "All"
+typeCheckingMode = "strict"
+pythonVersion = "3.8"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
