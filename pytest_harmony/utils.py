@@ -1,7 +1,12 @@
 import typing
+import typing_extensions
 import asyncio
 
-async def maybe_coro(coro: typing.Callable[..., typing.Any], *args: typing.Any, **kwargs: typing.Any) -> typing.Any:
+P = typing_extensions.ParamSpec("P")
+T = typing.TypeVar("T")
+
+
+async def maybe_coro(coro: typing.Callable[P, T], *args: P.args, **kwargs: P.kwargs) -> T:
     """Execute a sync or async function
     Parameters
     ----------
